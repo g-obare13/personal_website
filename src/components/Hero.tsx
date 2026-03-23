@@ -1,71 +1,84 @@
+import { Image } from "@unpic/react";
+import { Button } from "./ui/button";
+
 export default function Hero() {
   return (
-    <section
-      id="home"
-      className="relative min-h-screen pt-16 bg-white overflow-hidden flex items-center"
-    >
-      {/* Background watermark text */}
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none">
-        <span className="text-[22vw] font-black text-gray-100 tracking-widest opacity-60 whitespace-nowrap">
-          JAMES
-        </span>
+    <div className="relative w-full min-h-screen overflow-hidden font-sans selection:bg-orange-100">
+      {/* Background Watermark Text */}
+      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-[60%] select-none pointer-events-none z-0 w-full flex justify-center">
+        <h2 className="font-script text-[15rem] md:text-[25rem] text-muted-background opacity-2 whitespace-nowrap">
+          David
+        </h2>
       </div>
 
-      <div className="relative max-w-7xl mx-auto px-6 w-full grid lg:grid-cols-2 gap-12 items-center py-20">
-        {/* Left — photo */}
-        <div className="relative flex justify-center">
-          <div className="relative w-72 h-96 lg:w-96 lg:h-[520px] rounded-2xl overflow-hidden shadow-2xl">
-            <div className="absolute inset-0 bg-gradient-to-br from-gray-200 via-gray-300 to-gray-400 flex items-end justify-center">
-              {/* Silhouette placeholder */}
-              <div className="w-48 h-72 bg-gradient-to-b from-gray-500 to-gray-700 rounded-t-full opacity-60" />
-            </div>
-            <div className="absolute inset-0 flex items-center justify-center">
-              <span className="text-white/30 text-7xl font-black">JD</span>
+      <div className="relative z-10 container mx-auto px-6 pt-32 pb-12 min-h-screen flex flex-col justify-between max-w-7xl">
+        {/* Top Section: Photo and Small Intro */}
+        <div className="relative w-full flex-1 flex flex-col items-center md:items-start justify-end mt-10">
+          {/* Main Image */}
+          <div className="relative w-full max-w-sm md:max-w-md lg:max-w-lg z-10 flex justify-center md:justify-start">
+            <div className="w-[85%] md:w-full">
+              <Image
+                src="/phot.png"
+                layout="constrained"
+                width={1000}
+                aspectRatio={3 / 4}
+                alt="James David"
+                className="w-full h-auto object-cover block"
+              />
             </div>
           </div>
 
-          {/* Floating tag */}
-          <div className="absolute top-8 -right-4 lg:right-0 bg-white shadow-lg rounded-xl px-4 py-3 max-w-[180px] border border-gray-100">
-            <div className="flex items-center gap-2 text-xs font-medium text-gray-700">
-              <span className="text-[#E84E1B]">→</span>
+          {/* Floating Small Text (Right Side) */}
+          <div className="hidden md:block absolute right-0 lg:right-10 top-1/2 -translate-y-1/2 max-w-[280px] z-20">
+            <p className="text-[17px] font-medium text-muted-foreground leading-snug">
+              <span className="inline-flex items-center mr-3 translate-y-[-2px]">
+                <span className="w-12 h-[1.5px] bg-orange-500"></span>
+                <span className="w-2.5 h-2.5 rounded-full bg-orange-500 -ml-1"></span>
+              </span>
               I help entrepreneurs use manifestation to grow their businesses!
-            </div>
+            </p>
           </div>
 
-          {/* Case study play button */}
-          <div className="absolute bottom-8 -left-4 flex items-center gap-3 bg-white shadow-md rounded-full px-4 py-2 border border-gray-100">
-            <span className="text-xs text-gray-500">See client<br/>case study</span>
-            <button className="w-8 h-8 bg-[#E84E1B] rounded-full flex items-center justify-center shadow-md hover:bg-[#c93d0f] transition-colors">
-              <span className="text-white text-xs ml-0.5">▶</span>
-            </button>
-          </div>
-        </div>
-
-        {/* Right — copy */}
-        <div className="flex flex-col gap-8">
-          <div>
-            <h1 className="text-7xl lg:text-9xl font-black leading-none tracking-tight">
-              <span className="text-gray-900">JAMES</span>{' '}
-              <span className="text-[#E84E1B]">DAVID</span>
+          {/* Big Name Section - Overlapping the image */}
+          <div className="w-full text-center absolute bottom-0 left-1/2 -translate-x-1/2 z-20 pointer-events-none">
+            <h1 className="text-[6rem] sm:text-[10rem] md:text-[12rem] lg:text-[14rem] font-semibold tracking-[-0.05em] leading-[0.75] flex justify-center gap-2 md:gap-6">
+              <span className="text-[#1A1A1A]">JAMES</span>
+              <span className="bg-linear-to-b from-orange-300 to-orange-500 bg-clip-text text-transparent">
+                DAVID
+              </span>
             </h1>
           </div>
+        </div>
 
-          <p className="text-gray-600 max-w-sm leading-relaxed">
-            Learn how to tap into your intuitive superpowers to scale without the struggle.
-            Download my FREE Manifestation for Business Workbook to get started.
-          </p>
+        {/* Footer Section: CTA and Case Study */}
+        <div className="w-full grid grid-cols-1 md:grid-cols-3 items-end gap-8 mt-32 md:mt-40 z-30">
+          {/* Left: Case Study */}
+          <div className="flex items-center gap-4 cursor-pointer group justify-center md:justify-start">
+            <span className="text-xs font-bold uppercase tracking-widest text-slate-800 text-right leading-tight">
+              See client <br /> case study
+            </span>
+            <div className="w-16 h-16 flex items-center justify-center rounded-full bg-white shadow-[0_0_40px_rgba(255,77,33,0.15)] group-hover:scale-105 transition-transform">
+              <div className="w-0 h-0 border-t-[6px] border-t-transparent border-l-[10px] border-l-[#FF4D21] border-b-[6px] border-b-transparent ml-1"></div>
+            </div>
+          </div>
 
-          <div className="flex items-center gap-4 flex-wrap">
-            <a
-              href="#contact"
-              className="inline-flex items-center gap-2 bg-[#E84E1B] text-white font-bold px-8 py-4 rounded-full hover:bg-[#c93d0f] transition-colors shadow-lg shadow-orange-200"
-            >
+          {/* Middle: Description */}
+          <div className="text-center md:text-left">
+            <p className="text-slate-800 text-sm md:text-base leading-relaxed max-w-sm mx-auto md:mx-0 font-medium">
+              Learn how to tap into your intuitive superpowers to scale without
+              the struggle. Download my FREE Manifestation for Business Workbook
+              to get started.
+            </p>
+          </div>
+
+          {/* Right: CTA Button */}
+          <div className="flex justify-center md:justify-end">
+            <Button variant="cta" size="xl" cutCorner>
               YES I WANT IT
-              <span className="text-sm">↗</span>
-            </a>
+            </Button>
           </div>
         </div>
       </div>
-    </section>
-  )
+    </div>
+  );
 }

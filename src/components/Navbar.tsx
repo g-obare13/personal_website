@@ -1,78 +1,127 @@
-import { useState } from 'react'
+import { useState, useEffect } from "react";
+import { cn } from "@/lib/utils";
+import { Button } from "./ui/button";
 
 export default function Navbar() {
-  const [menuOpen, setMenuOpen] = useState(false)
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const navItems = [
+    { name: "Home", href: "#home", active: true },
+    { name: "About Me", href: "#about" },
+    { name: "Portfolio", href: "#portfolio" },
+    { name: "Podcast", href: "#podcast" },
+    { name: "Join the movement", href: "#movement" },
+  ];
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-sm border-b border-gray-100">
-      <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+    <header
+      className={cn(
+        "fixed top-0 left-0 right-0 z-50 transition-all duration-300 px-6 lg:px-12",
+        isScrolled
+          ? "py-4 bg-white/90 backdrop-blur-md border-b border-slate-100"
+          : "py-8 bg-transparent",
+      )}
+    >
+      <div className="max-w-7xl mx-auto flex items-center justify-between">
         {/* Logo */}
-        <a href="#" className="text-[#E84E1B] font-bold text-xl italic">
+        <a
+          href="#"
+          className="text-primary text-2xl font-medium tracking-tight"
+          style={{ fontFamily: "'Satisfy', cursive" }}
+        >
           James David
         </a>
 
         {/* Desktop Nav */}
-        <nav className="hidden md:flex items-center gap-8">
-          <a href="#home" className="text-sm font-medium bg-gray-900 text-white px-4 py-1.5 rounded-full">
-            Home
-          </a>
-          <a href="#about" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">
-            About Me
-          </a>
-          <a href="#portfolio" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">
-            Portfolio
-          </a>
-          <a href="#podcast" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">
-            Podcast
-          </a>
-          <a href="#movement" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">
-            Join the movement
-          </a>
+        <nav className="hidden lg:flex items-center gap-1">
+          {navItems.map((item) => (
+            <a
+              key={item.name}
+              href={item.href}
+              className={cn(
+                "px-5 py-2 text-sm font-medium rounded-full transition-all duration-200",
+                item.active
+                  ? "bg-white text-primary border border-primary/30"
+                  : "text-foreground/60 hover:text-foreground",
+              )}
+            >
+              {item.name}
+            </a>
+          ))}
         </nav>
 
-        {/* CTA */}
-        <a
-          href="#contact"
-          className="hidden md:inline-flex items-center gap-2 bg-[#E84E1B] text-white text-sm font-semibold px-5 py-2 rounded-full hover:bg-[#c93d0f] transition-colors"
-        >
-          Get in touch
-          <span className="text-xs">↗</span>
-        </a>
+        {/* CTA Button */}
+        <div className="flex items-center gap-4">
+          <Button variant="cta" size="lg" cutCorner>
+            Get in touch
+          </Button>
 
-        {/* Mobile menu toggle */}
-        <button
-          className="md:hidden p-2"
-          onClick={() => setMenuOpen(!menuOpen)}
-          aria-label="Toggle menu"
-        >
-          <div className="w-5 h-0.5 bg-gray-800 mb-1" />
-          <div className="w-5 h-0.5 bg-gray-800 mb-1" />
-          <div className="w-5 h-0.5 bg-gray-800" />
-        </button>
+          {/* Mobile Menu Button */}
+          <button
+            className="lg:hidden p-2 text-foreground"
+            onClick={() => setMenuOpen(!menuOpen)}
+          >
+            <div
+              className={cn(
+                "w-6 h-0.5 bg-current transition-all",
+                menuOpen && "rotate-45 translate-y-1.5",
+              )}
+            />
+            <div
+              className={cn(
+                "w-6 h-0.5 bg-current my-1.5 transition-all",
+                menuOpen && "opacity-0",
+              )}
+            />
+            <div
+              className={cn(
+                "w-6 h-0.5 bg-current transition-all",
+                menuOpen && "-rotate-45 -translate-y-1.5",
+              )}
+            />
+          </button>
+        </div>
       </div>
 
       {/* Mobile Menu */}
-      {menuOpen && (
-        <div className="md:hidden bg-white border-t border-gray-100 px-6 py-4 flex flex-col gap-4">
-          {['Home', 'About Me', 'Portfolio', 'Podcast', 'Join the movement'].map((item) => (
+      <div
+        className={cn(
+          "absolute top-full left-0 right-0 bg-white dark:bg-zinc-900 border-b border-border shadow-xl transition-all duration-300 lg:hidden overflow-hidden",
+          menuOpen ? "max-h-[500px] opacity-100" : "max-h-0 opacity-0",
+        )}
+      >
+        <div className="px-6 py-8 flex flex-col gap-6">
+          {navItems.map((item) => (
             <a
-              key={item}
-              href={`#${item.toLowerCase().replace(/ /g, '-')}`}
-              className="text-sm text-gray-700 hover:text-[#E84E1B] transition-colors"
+              key={item.name}
+              href={item.href}
+              className="text-lg font-medium text-foreground/80 hover:text-primary transition-colors"
               onClick={() => setMenuOpen(false)}
             >
-              {item}
+              {item.name}
             </a>
           ))}
-          <a
+          <Button variant="cta" size="lg" cutCorner>
+            Get in touch
+          </Button>
+          {/* <a
             href="#contact"
-            className="inline-flex items-center justify-center bg-[#E84E1B] text-white text-sm font-semibold px-5 py-2 rounded-full"
+            className="bg-primary text-white text-center py-4 rounded-xl font-bold"
             onClick={() => setMenuOpen(false)}
           >
             Get in touch
-          </a>
+          </a> */}
         </div>
-      )}
+      </div>
     </header>
-  )
+  );
 }
