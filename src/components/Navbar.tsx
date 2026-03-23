@@ -113,13 +113,7 @@ export default function Navbar() {
           <Button variant="cta" size="lg" cutCorner>
             Get in touch
           </Button>
-          {/* <a
-            href="#contact"
-            className="bg-primary text-white text-center py-4 rounded-xl font-bold"
-            onClick={() => setMenuOpen(false)}
-          >
-            Get in touch
-          </a> */}
+          
         </div>
       </div>
     </header>
